@@ -21,4 +21,9 @@ class UserAppData extends Model
     ];
 
     protected $casts = ['input_data' => 'json'];
+    
+    public function appTool()
+    {
+        return $this->belongsTo(AppTool::class);
+    }
 }

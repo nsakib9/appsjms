@@ -1,13 +1,37 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Apps\CoverLetterController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
+// Authentication Routes
+Route::middleware('guest')->group(function () {
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
+});
+
+// Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/app/{slug}', [HomeController::class, 'showApp'])->name('app.show');
 Route::post('/app/{slug}/generate', [CoverLetterController::class, 'generate'])->name('app.generate');
+
+// Admin Routes
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/tools', DashboardController::class);
+});
 
 
 
@@ -19,7 +43,6 @@ Route::post('/app/{slug}/generate', [CoverLetterController::class, 'generate'])-
 
 // use App\Http\Controllers\Frontend\HomeController;
 // use App\Http\Controllers\Apps\CoverLetterController;
-// use App\Http\Controllers\Admin\DashboardController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/app/{slug}', [HomeController::class, 'showApp'])->name('app.show');
