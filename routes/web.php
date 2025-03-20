@@ -36,12 +36,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-
-
-Route::prefix('admin')
-      ->middleware(['auth','is_admin'])
-      ->name('admin.')
-      ->group(function() {
-          // Admin routes here...
-      });
