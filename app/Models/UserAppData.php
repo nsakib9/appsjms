@@ -9,7 +9,16 @@ class UserAppData extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'app_tool_id', 'input_data', 'output_data'];
+    protected $fillable = [
+        'user_id', 
+        'app_tool_id', 
+        'name',
+        'email',
+        'job_title',
+        'company_name',
+        'skills',
+        'generated_letter'
+    ];
 
     protected $casts = ['input_data' => 'json'];
 }

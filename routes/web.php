@@ -10,6 +10,8 @@ Route::get('/app/{slug}', [HomeController::class, 'showApp'])->name('app.show');
 Route::post('/app/{slug}/generate', [CoverLetterController::class, 'generate'])->name('app.generate');
 
 
+
+
 // use App\Http\Controllers\ProfileController;
 // use Illuminate\Foundation\Application;
 // use Illuminate\Support\Facades\Route;

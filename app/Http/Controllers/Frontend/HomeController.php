@@ -15,7 +15,7 @@ class HomeController extends Controller
 
     public function showApp($slug)
     {
-        $app = AppTool::where('slug', $slug)->firstOrFail();
+        $app = AppTool::where('slug', $slug)->with('userAppData')->firstOrFail();
         return view('frontend.apps.app_page', compact('app'));
     }
 }

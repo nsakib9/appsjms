@@ -10,12 +10,17 @@ return new class extends Migration
     {
         Schema::create('user_app_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('app_tool_id')->constrained('app_tools')->cascadeOnDelete();
-            $table->json('input_data');
-            $table->longText('output_data');
+            $table->string('name');
+            $table->string('email');
+            $table->string('job_title');
+            $table->string('company_name');
+            $table->text('skills');
+            $table->longText('generated_letter')->nullable(); // Allow null values
             $table->timestamps();
         });
+        
+        
     }
 
     public function down()

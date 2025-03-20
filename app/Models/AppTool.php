@@ -10,4 +10,9 @@ class AppTool extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug', 'description', 'api_endpoint', 'status'];
+    
+    public function userAppData()
+    {
+        return $this->hasMany(UserAppData::class);
+    }
 }
